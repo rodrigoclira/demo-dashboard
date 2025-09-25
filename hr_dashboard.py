@@ -3,21 +3,27 @@ import plotly.express as px
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 import dash
-from dash import dcc, html, Input, Output, callback
+from dash import dcc, html, Input, Output
 import numpy as np
+from datetime import datetime
 
 # Load and prepare data - handle CSV parsing issues
 # no index column in the CSV
-df = pd.read_csv("data/rh_construtora_dataset.csv", index_col=False, sep=",")
+df = pd.read_csv("data/rh_construtora_dataset2.csv", index_col=False, sep=",")
 
 # Clean and convert date columns with proper error handling
 # add format error coercion to handle invalid dates in the dataset YYYY-MM-DD
 df["data_admissao"] = pd.to_datetime(df["data_admissao"], format="%Y-%m-%d")
+df["data_nascimento"] = pd.to_datetime(df["data_nascimento"], format="%Y-%m-%d")
+
 df["data_demissao"] = pd.to_datetime(df["data_demissao"], format="%Y-%m-%d")
+df["ultimo_treinamento"] = pd.to_datetime(df["ultimo_treinamento"], format="%Y-%m-%d")
 
 # Clean numeric columns
 df["salario"] = pd.to_numeric(df["salario"], errors="coerce")
-df["idade"] = pd.to_numeric(df["idade"], errors="coerce")
+
+# calculate idade column based in data_nascimento
+df["idade"] = (datetime.now() - df["data_nascimento"]).dt.days // 365
 df["horas_treinamento_ano"] = pd.to_numeric(
     df["horas_treinamento_ano"], errors="coerce"
 )
@@ -35,14 +41,22 @@ df.loc[mask_desligado, "status_funcionario"] = "Desligado"
 # Fill NaN status with 'Ativo'
 df["status_funcionario"] = df["status_funcionario"].fillna("Ativo")
 
+
 # Calculate metrics
 total_employees = len(df)
 active_employees = len(df[df["status_funcionario"] == "Ativo"])
 avg_salary = df["salario"].mean()
 turnover_rate = len(df[df["status_funcionario"] == "Desligado"]) / total_employees * 100
 
+# Calculate total payroll (only active employees)
+total_payroll = df[df["status_funcionario"] == "Ativo"]["salario"].sum()
+
+# Calculate years of service
+today = datetime.now()
+df["anos_servico"] = (today - df["data_admissao"]).dt.days / 365.25
+
 # Initialize Dash app
-app = dash.Dash(__name__)
+app = dash.Dash(__name__, suppress_callback_exceptions=True, title="Dashboard RH")
 
 # Define colors
 colors = {
@@ -60,7 +74,7 @@ app.layout = html.Div(
         html.Div(
             [
                 html.H1(
-                    "Dashboard RH - Construtora",
+                    "Dashboard RH",
                     style={
                         "textAlign": "center",
                         "color": colors["primary"],
@@ -95,7 +109,7 @@ app.layout = html.Div(
                                 )
                             ],
                             style={
-                                "width": "23%",
+                                "width": "18%",
                                 "display": "inline-block",
                                 "margin": "1%",
                             },
@@ -125,7 +139,7 @@ app.layout = html.Div(
                                 )
                             ],
                             style={
-                                "width": "23%",
+                                "width": "18%",
                                 "display": "inline-block",
                                 "margin": "1%",
                             },
@@ -135,7 +149,7 @@ app.layout = html.Div(
                                 html.Div(
                                     [
                                         html.H3(
-                                            f"R$ {avg_salary:,.0f}",
+                                            f"R$ {avg_salary:,.2f}",
                                             style={
                                                 "color": colors["accent"],
                                                 "margin": 0,
@@ -153,7 +167,37 @@ app.layout = html.Div(
                                 )
                             ],
                             style={
-                                "width": "23%",
+                                "width": "18%",
+                                "display": "inline-block",
+                                "margin": "1%",
+                            },
+                        ),
+                        html.Div(
+                            [
+                                html.Div(
+                                    [
+                                        html.H3(
+                                            f"R$ {total_payroll:,.2f}",
+                                            style={
+                                                "color": colors["primary"],
+                                                "margin": 0,
+                                            },
+                                        ),
+                                        html.P(
+                                            "Folha de Pagamento", style={"margin": 0}
+                                        ),
+                                    ],
+                                    className="kpi-card",
+                                    style={
+                                        "background": colors["card"],
+                                        "padding": 20,
+                                        "borderRadius": 8,
+                                        "boxShadow": "0 2px 4px rgba(0,0,0,0.1)",
+                                    },
+                                )
+                            ],
+                            style={
+                                "width": "18%",
                                 "display": "inline-block",
                                 "margin": "1%",
                             },
@@ -183,7 +227,7 @@ app.layout = html.Div(
                                 )
                             ],
                             style={
-                                "width": "23%",
+                                "width": "18%",
                                 "display": "inline-block",
                                 "margin": "1%",
                             },
@@ -191,6 +235,678 @@ app.layout = html.Div(
                     ],
                     style={"marginBottom": 30},
                 ),
+                # Tabs for different sections
+                dcc.Tabs(
+                    id="main-tabs",
+                    value="dashboard",
+                    children=[
+                        dcc.Tab(label="Visão Geral", value="dashboard"),
+                        dcc.Tab(label="Aniversários", value="birthdays"),
+                        dcc.Tab(label="Tempo de Empresa", value="work-anniversaries"),
+                        dcc.Tab(label="Certificações", value="certifications"),
+                    ],
+                ),
+                # Tab content
+                html.Div(id="tabs-content"),
+            ],
+            style={
+                "padding": 20,
+                "backgroundColor": colors["background"],
+                "minHeight": "100vh",
+            },
+        )
+    ]
+)
+
+
+# Helper functions for birthday and anniversary features
+def get_upcoming_birthdays(days_ahead=30):
+    """Get employees with birthdays in the next N days"""
+    today = datetime.now()
+    active_df = df[df["status_funcionario"] == "Ativo"].copy()
+
+    # Create this year's birthday for each employee
+    active_df["birthday_this_year"] = active_df["data_nascimento"].dt.strftime(
+        f"{today.year}-%m-%d"
+    )
+    active_df["birthday_this_year"] = pd.to_datetime(active_df["birthday_this_year"])
+
+    # If birthday already passed this year, use next year
+    active_df.loc[active_df["birthday_this_year"] < today, "birthday_this_year"] = (
+        active_df.loc[
+            active_df["birthday_this_year"] < today, "data_nascimento"
+        ].dt.strftime(f"{today.year + 1}-%m-%d")
+    )
+    active_df.loc[active_df["birthday_this_year"] < today, "birthday_this_year"] = (
+        pd.to_datetime(
+            active_df.loc[active_df["birthday_this_year"] < today, "birthday_this_year"]
+        )
+    )
+
+    # Filter for upcoming birthdays
+    end_date = today + pd.Timedelta(days=days_ahead)
+    upcoming = active_df[active_df["birthday_this_year"] <= end_date].sort_values(
+        "birthday_this_year"
+    )
+
+    return upcoming[
+        [
+            "nome",
+            "departamento",
+            "cargo",
+            "data_nascimento",
+            "birthday_this_year",
+            "idade",
+        ]
+    ]
+
+
+def get_work_anniversaries(days_ahead=30):
+    """Get employees with work anniversaries in the next N days"""
+    today = datetime.now()
+    active_df = df[df["status_funcionario"] == "Ativo"].copy()
+
+    # Create this year's anniversary for each employee
+    active_df["anniversary_this_year"] = active_df["data_admissao"].dt.strftime(
+        f"{today.year}-%m-%d"
+    )
+    active_df["anniversary_this_year"] = pd.to_datetime(
+        active_df["anniversary_this_year"]
+    )
+
+    # If anniversary already passed this year, use next year
+    active_df.loc[
+        active_df["anniversary_this_year"] < today, "anniversary_this_year"
+    ] = active_df.loc[
+        active_df["anniversary_this_year"] < today, "data_admissao"
+    ].dt.strftime(f"{today.year + 1}-%m-%d")
+    active_df.loc[
+        active_df["anniversary_this_year"] < today, "anniversary_this_year"
+    ] = pd.to_datetime(
+        active_df.loc[
+            active_df["anniversary_this_year"] < today, "anniversary_this_year"
+        ]
+    )
+
+    # Filter for upcoming anniversaries
+    end_date = today + pd.Timedelta(days=days_ahead)
+    upcoming = active_df[active_df["anniversary_this_year"] <= end_date].sort_values(
+        "anniversary_this_year"
+    )
+
+    return upcoming[
+        [
+            "nome",
+            "departamento",
+            "cargo",
+            "data_admissao",
+            "anniversary_this_year",
+            "anos_servico",
+        ]
+    ]
+
+
+def get_outdated_certifications():
+    """Get employees with outdated certifications (sorted by oldest training date)"""
+    today = datetime.now()
+    active_df = df[df["status_funcionario"] == "Ativo"].copy()
+
+    # Filter only employees who have certifications
+    certified_df = active_df[active_df["certificacoes_seguranca"].notna()].copy()
+
+    # Calculate days since last training
+    certified_df["dias_sem_treinamento"] = (
+        today - certified_df["ultimo_treinamento"]
+    ).dt.days
+
+    # Sort by days without training (descending - oldest first)
+    certified_df = certified_df.sort_values("dias_sem_treinamento", ascending=False)
+
+    return certified_df[
+        [
+            "nome",
+            "departamento",
+            "cargo",
+            "certificacoes_seguranca",
+            "ultimo_treinamento",
+            "dias_sem_treinamento",
+            "horas_treinamento_ano",
+        ]
+    ]
+
+
+# Callbacks for tabs
+@app.callback(Output("tabs-content", "children"), Input("main-tabs", "value"))
+def render_tab_content(active_tab):
+    if active_tab == "birthdays":
+        upcoming_birthdays = get_upcoming_birthdays()
+
+        return html.Div(
+            [
+                html.H2(
+                    "Aniversários dos Próximos 30 Dias",
+                    style={"color": colors["primary"], "marginBottom": 20},
+                ),
+                html.Div(
+                    [
+                        html.Div(
+                            [
+                                html.H4(
+                                    f"Total: {len(upcoming_birthdays)} aniversariantes"
+                                ),
+                                html.P(
+                                    "Funcionários ativos com aniversário nos próximos 30 dias"
+                                ),
+                            ],
+                            style={
+                                "background": colors["card"],
+                                "padding": 20,
+                                "borderRadius": 8,
+                                "boxShadow": "0 2px 4px rgba(0,0,0,0.1)",
+                                "marginBottom": 20,
+                            },
+                        )
+                    ]
+                ),
+                # Birthday table
+                html.Div(
+                    [
+                        html.Table(
+                            [
+                                html.Thead(
+                                    [
+                                        html.Tr(
+                                            [
+                                                html.Th(
+                                                    "Nome",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["primary"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Departamento",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["primary"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Cargo",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["primary"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Data Aniversário",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["primary"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Idade",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["primary"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Dias até Aniversário",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["primary"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                ),
+                                html.Tbody(
+                                    [
+                                        html.Tr(
+                                            [
+                                                html.Td(
+                                                    row["nome"],
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    row["departamento"],
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    row["cargo"],
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    row["data_nascimento"].strftime(
+                                                        "%d/%m"
+                                                    ),
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    f"{int(row['idade'])} anos",
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    f"{(row['birthday_this_year'] - datetime.now()).days} dias",
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                            ]
+                                        )
+                                        for _, row in upcoming_birthdays.iterrows()
+                                    ]
+                                ),
+                            ],
+                            style={
+                                "width": "100%",
+                                "borderCollapse": "collapse",
+                                "background": colors["card"],
+                            },
+                        )
+                    ],
+                    style={
+                        "borderRadius": 8,
+                        "boxShadow": "0 2px 4px rgba(0,0,0,0.1)",
+                        "overflow": "hidden",
+                    },
+                ),
+            ]
+        )
+
+    elif active_tab == "work-anniversaries":
+        upcoming_anniversaries = get_work_anniversaries()
+
+        return html.Div(
+            [
+                html.H2(
+                    "Aniversários de Tempo de Empresa dos Próximos 30 Dias",
+                    style={"color": colors["primary"], "marginBottom": 20},
+                ),
+                html.Div(
+                    [
+                        html.Div(
+                            [
+                                html.H4(
+                                    f"Total: {len(upcoming_anniversaries)} aniversários de empresa"
+                                ),
+                                html.P(
+                                    "Funcionários com aniversário de admissão nos próximos 30 dias"
+                                ),
+                            ],
+                            style={
+                                "background": colors["card"],
+                                "padding": 20,
+                                "borderRadius": 8,
+                                "boxShadow": "0 2px 4px rgba(0,0,0,0.1)",
+                                "marginBottom": 20,
+                            },
+                        )
+                    ]
+                ),
+                # Anniversary table
+                html.Div(
+                    [
+                        html.Table(
+                            [
+                                html.Thead(
+                                    [
+                                        html.Tr(
+                                            [
+                                                html.Th(
+                                                    "Nome",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors[
+                                                            "secondary"
+                                                        ],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Departamento",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors[
+                                                            "secondary"
+                                                        ],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Cargo",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors[
+                                                            "secondary"
+                                                        ],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Data Admissão",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors[
+                                                            "secondary"
+                                                        ],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Anos de Empresa",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors[
+                                                            "secondary"
+                                                        ],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Dias até Aniversário",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors[
+                                                            "secondary"
+                                                        ],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                ),
+                                html.Tbody(
+                                    [
+                                        html.Tr(
+                                            [
+                                                html.Td(
+                                                    row["nome"],
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    row["departamento"],
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    row["cargo"],
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    row["data_admissao"].strftime(
+                                                        "%d/%m/%Y"
+                                                    ),
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    f"{row['anos_servico']:.1f} anos",
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    f"{(row['anniversary_this_year'] - datetime.now()).days} dias",
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                            ]
+                                        )
+                                        for _, row in upcoming_anniversaries.iterrows()
+                                    ]
+                                ),
+                            ],
+                            style={
+                                "width": "100%",
+                                "borderCollapse": "collapse",
+                                "background": colors["card"],
+                            },
+                        )
+                    ],
+                    style={
+                        "borderRadius": 8,
+                        "boxShadow": "0 2px 4px rgba(0,0,0,0.1)",
+                        "overflow": "hidden",
+                    },
+                ),
+            ]
+        )
+
+    elif active_tab == "certifications":
+        outdated_certs = get_outdated_certifications()
+
+        return html.Div(
+            [
+                html.H2(
+                    "Status das Certificações de Segurança",
+                    style={"color": colors["primary"], "marginBottom": 20},
+                ),
+                html.Div(
+                    [
+                        html.Div(
+                            [
+                                html.H4(
+                                    f"Total: {len(outdated_certs)} funcionários certificados"
+                                ),
+                                html.P(
+                                    "Funcionários ordenados por tempo sem atualização de treinamento"
+                                ),
+                            ],
+                            style={
+                                "background": colors["card"],
+                                "padding": 20,
+                                "borderRadius": 8,
+                                "boxShadow": "0 2px 4px rgba(0,0,0,0.1)",
+                                "marginBottom": 20,
+                            },
+                        )
+                    ]
+                ),
+                # Certifications table
+                html.Div(
+                    [
+                        html.Table(
+                            [
+                                html.Thead(
+                                    [
+                                        html.Tr(
+                                            [
+                                                html.Th(
+                                                    "Nome",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["accent"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Departamento",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["accent"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Cargo",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["accent"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Certificações",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["accent"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Último Treinamento",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["accent"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Dias sem Treinamento",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["accent"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                                html.Th(
+                                                    "Horas Anuais",
+                                                    style={
+                                                        "padding": 10,
+                                                        "background": colors["accent"],
+                                                        "color": "white",
+                                                    },
+                                                ),
+                                            ]
+                                        )
+                                    ]
+                                ),
+                                html.Tbody(
+                                    [
+                                        html.Tr(
+                                            [
+                                                html.Td(
+                                                    row["nome"],
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    row["departamento"],
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    row["cargo"],
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    row["certificacoes_seguranca"],
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                        "fontSize": "12px",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    row["ultimo_treinamento"].strftime(
+                                                        "%d/%m/%Y"
+                                                    ),
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    f"{int(row['dias_sem_treinamento'])} dias",
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                        "color": "red"
+                                                        if row["dias_sem_treinamento"]
+                                                        > 365
+                                                        else "orange"
+                                                        if row["dias_sem_treinamento"]
+                                                        > 180
+                                                        else "green",
+                                                        "fontWeight": "bold",
+                                                    },
+                                                ),
+                                                html.Td(
+                                                    f"{int(row['horas_treinamento_ano'])}h",
+                                                    style={
+                                                        "padding": 10,
+                                                        "borderBottom": "1px solid #ddd",
+                                                    },
+                                                ),
+                                            ],
+                                            style={
+                                                "backgroundColor": "#ffebee"
+                                                if row["dias_sem_treinamento"] > 365
+                                                else "#fff3e0"
+                                                if row["dias_sem_treinamento"] > 180
+                                                else "#e8f5e8"
+                                            },
+                                        )
+                                        for _, row in outdated_certs.iterrows()
+                                    ]
+                                ),
+                            ],
+                            style={
+                                "width": "100%",
+                                "borderCollapse": "collapse",
+                                "background": colors["card"],
+                            },
+                        )
+                    ],
+                    style={
+                        "borderRadius": 8,
+                        "boxShadow": "0 2px 4px rgba(0,0,0,0.1)",
+                        "overflow": "hidden",
+                    },
+                ),
+            ]
+        )
+
+    else:  # dashboard tab
+        return html.Div(
+            [
                 # Charts Row 1
                 html.Div(
                     [
@@ -275,15 +991,8 @@ app.layout = html.Div(
                         ),
                     ]
                 ),
-            ],
-            style={
-                "padding": 20,
-                "backgroundColor": colors["background"],
-                "minHeight": "100vh",
-            },
+            ]
         )
-    ]
-)
 
 
 # Callbacks for charts
