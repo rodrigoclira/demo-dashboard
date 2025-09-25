@@ -1,0 +1,161 @@
+id_funcionario,nome,cargo,departamento,obra_atual,data_admissao,salario,idade,sexo,escolaridade,tem_cnh,certificacoes_seguranca,ultimo_treinamento,horas_treinamento_ano,dias_ausencia_mes,acidentes_trabalho,uso_epi_score,avaliacao_performance,status_funcionario,data_demissao,motivo_saida,custo_contratacao,tempo_preenchimento_vaga_dias
+1001,João Silva,Pedreiro,Operacional,Residencial Jardins,2023-03-15,2800,34,M,Ensino Fundamental,Sim,NR10;NR35,2024-08-15,40,2,0,9.5,8.2,Ativo,,,,3500,15
+1002,Maria Santos,Engenheira Civil,Técnico,Comercial Centro,2022-01-10,8500,29,F,Superior Completo,Sim,NR18;NR35,2024-09-01,60,0,0,10,9.1,Ativo,,,,12000,45
+1003,Carlos Oliveira,Mestre de Obras,Operacional,Industrial Norte,2021-06-20,4200,42,M,Ensino Médio,Sim,NR18;NR10,2024-07-20,35,1,1,8.5,7.8,Ativo,,,,5500,22
+1004,Ana Costa,Auxiliar Administrativo,Administrativo,Escritório Central,2023-08-01,2200,26,F,Superior Incompleto,Não,,2024-06-10,25,3,0,10,8.7,Ativo,,,,2800,30
+1005,Roberto Lima,Soldador,Operacional,Industrial Norte,2020-11-05,3200,38,M,Ensino Médio,Sim,NR18;NR35;NR33,2024-08-30,50,1,0,9.2,8.9,Ativo,,,,4200,18
+1006,Fernanda Rocha,Técnica em Segurança,Técnico,Residencial Jardins,2022-05-12,3800,31,F,Técnico,Sim,NR18;NR10;NR33,2024-09-05,80,0,0,10,9.3,Ativo,,,,6500,35
+1007,José Ferreira,Servente,Operacional,Comercial Centro,2023-11-20,1800,28,M,Ensino Fundamental,Não,NR18,2024-05-15,20,4,0,8.0,7.2,Ativo,,,,2100,12
+1008,Patrícia Alves,Arquiteta,Técnico,Residencial Jardins,2021-09-08,7200,35,F,Superior Completo,Sim,NR18,2024-08-22,45,1,0,10,8.8,Ativo,,,,10500,52
+1009,Marcos Souza,Eletricista,Operacional,Industrial Norte,2022-12-03,3500,40,M,Técnico,Sim,NR10;NR35,2024-07-10,55,2,1,9.0,8.1,Ativo,,,,4800,25
+1010,Luciana Dias,Analista de RH,Administrativo,Escritório Central,2023-02-14,4500,28,F,Superior Completo,Sim,,2024-09-12,70,1,0,10,9.0,Ativo,,,,8200,40
+1011,Antonio Gomes,Pedreiro,Operacional,Comercial Centro,2024-01-08,2800,45,M,Ensino Fundamental,Não,NR18,2024-08-01,30,3,0,8.8,7.9,Ativo,,,,3500,20
+1012,Sandra Melo,Contadora,Administrativo,Escritório Central,2020-03-22,5500,39,F,Superior Completo,Sim,,2024-06-30,40,0,0,10,9.2,Ativo,,,,9500,60
+1013,Rafael Torres,Carpinteiro,Operacional,Residencial Jardins,2023-07-10,3000,33,M,Ensino Médio,Sim,NR18;NR35,2024-08-18,42,2,0,9.1,8.4,Ativo,,,,4000,16
+1014,Camila Reis,Estagiária Engenharia,Técnico,Industrial Norte,2024-06-15,1200,22,F,Superior Incompleto,Não,NR18,2024-08-25,35,1,0,9.5,8.0,Ativo,,,,1500,10
+1015,Eduardo Martins,Motorista,Operacional,Todas as Obras,2021-12-01,2600,41,M,Ensino Médio,Sim,NR35,2024-07-05,25,3,0,9.0,7.5,Ativo,,,,3200,14
+1016,Juliana Barbosa,Almoxarife,Operacional,Escritório Central,2022-08-18,2400,30,F,Ensino Médio,Não,NR18,2024-06-15,30,2,0,9.3,8.6,Ativo,,,,3000,25
+1017,Paulo Henrique,Encarregado,Operacional,Comercial Centro,2020-05-30,3800,47,M,Ensino Médio,Sim,NR18;NR10,2024-07-28,48,1,0,8.7,8.3,Ativo,,,,5000,28
+1018,Renata Lima,Assistente Financeiro,Administrativo,Escritório Central,2023-04-12,3200,27,F,Superior Completo,Não,,2024-09-08,35,2,0,10,8.9,Ativo,,,,4500,32
+1019,Diego Santos,Pedreiro,Operacional,Industrial Norte,2019-08-15,3200,36,M,Ensino Fundamental,Sim,NR18;NR35,2024-08-10,45,1,1,8.9,8.7,Ativo,,,,3500,18
+1020,Carla Nunes,Coordenadora de RH,Administrativo,Escritório Central,2019-11-20,6500,37,F,Superior Completo,Sim,,2024-09-10,65,0,0,10,9.4,Ativo,,,,11000,55
+1021,Thiago Rocha,Servente,Operacional,Residencial Jardins,2024-03-05,1800,24,M,Ensino Fundamental,Não,NR18,2024-08-12,18,5,0,7.5,6.8,Ativo,,,,2100,8
+1022,Beatriz Silva,Estagiária Arquitetura,Técnico,Comercial Centro,2024-07-01,1000,21,F,Superior Incompleto,Não,NR18,2024-08-28,20,2,0,9.8,7.8,Ativo,,,,1200,12
+1023,Gustavo Lima,Soldador,Operacional,Industrial Norte,2022-02-28,3200,29,M,Técnico,Sim,NR18;NR35;NR33,2024-08-20,52,1,0,9.4,8.8,Ativo,,,,4200,22
+1024,Isabel Costa,Recepcionista,Administrativo,Escritório Central,2023-09-10,2000,25,F,Ensino Médio,Não,,2024-06-20,15,3,0,10,8.1,Ativo,,,,2500,18
+1025,Rodrigo Alves,Técnico Eletrônico,Técnico,Todas as Obras,2021-04-14,4200,32,M,Técnico,Sim,NR10;NR35,2024-07-15,58,1,0,9.6,8.9,Ativo,,,,6000,38
+1026,Adriana Souza,Pedreiro,Operacional,Comercial Centro,2024-05-20,2800,31,F,Ensino Fundamental,Não,NR18,2024-08-15,25,2,0,8.6,7.7,Desligado,2024-09-15,Pedido Demissão,3500,15
+1027,Leonardo Dias,Mestre de Obras,Operacional,Residencial Jardins,2018-12-10,4500,49,M,Ensino Médio,Sim,NR18;NR10;NR35,2024-08-05,55,0,0,9.8,9.1,Ativo,,,,5500,30
+1028,Vanessa Martins,Auxiliar de Escritório,Administrativo,Escritório Central,2023-12-01,2100,26,F,Ensino Médio,Não,,2024-06-25,20,4,0,10,7.9,Desligado,2024-08-30,Demissão por Justa Causa,2800,20
+1029,Felipe Oliveira,Carpinteiro,Operacional,Industrial Norte,2022-10-15,3000,35,M,Ensino Médio,Sim,NR18;NR35,2024-07-30,40,2,1,8.8,8.2,Ativo,,,,4000,24
+1030,Mônica Ferreira,Engenheira de Segurança,Técnico,Todas as Obras,2020-07-05,9200,34,F,Superior Completo,Sim,NR18;NR10;NR33;NR35,2024-09-02,85,0,0,10,9.6,Ativo,,,,15000,65
+1031,Bruno Costa,Pedreiro,Operacional,Residencial Jardins,2023-06-12,2900,29,M,Ensino Fundamental,Não,NR18,2024-08-10,32,1,0,9.1,8.3,Ativo,,,,3500,18
+1032,Cláudia Mendes,Auxiliar de Limpeza,Operacional,Escritório Central,2024-02-20,1600,33,F,Ensino Fundamental,Não,,2024-06-15,12,2,0,10,7.8,Ativo,,,,2000,8
+1033,Sérgio Barbosa,Operador de Máquinas,Operacional,Industrial Norte,2021-08-15,3800,41,M,Ensino Médio,Sim,NR18;NR12,2024-08-25,48,1,0,9.3,8.6,Ativo,,,,5200,35
+1034,Amanda Silva,Estagiária de RH,Administrativo,Escritório Central,2024-07-10,1100,20,F,Superior Incompleto,Não,,2024-08-20,25,1,0,10,8.4,Ativo,,,,1300,15
+1035,Francisco Lima,Armador,Operacional,Comercial Centro,2022-03-08,3100,36,M,Ensino Médio,Sim,NR18;NR35,2024-07-28,38,2,0,8.9,8.1,Ativo,,,,4100,22
+1036,Rosana Santos,Secretária,Administrativo,Escritório Central,2019-05-15,2800,42,F,Ensino Médio,Não,,2024-06-30,28,1,0,10,8.9,Ativo,,,,3500,25
+1037,Jeferson Rocha,Ajudante Geral,Operacional,Residencial Jardins,2024-01-15,1900,25,M,Ensino Fundamental,Não,NR18,2024-08-05,22,3,0,8.2,7.5,Ativo,,,,2300,12
+1038,Tânia Oliveira,Técnica em Edificações,Técnico,Industrial Norte,2020-10-22,4800,38,F,Técnico,Sim,NR18;NR10,2024-08-15,65,0,0,9.8,9.2,Ativo,,,,7500,42
+1039,Ricardo Alves,Pintor,Operacional,Comercial Centro,2023-04-18,2600,32,M,Ensino Fundamental,Sim,NR18,2024-07-20,28,2,0,8.7,8.0,Ativo,,,,3200,20
+1040,Ivone Martins,Coordenadora Financeira,Administrativo,Escritório Central,2018-09-12,7800,45,F,Superior Completo,Sim,,2024-09-05,45,0,0,10,9.5,Ativo,,,,12500,58
+1041,Antônio Carlos,Vigilante,Operacional,Todas as Obras,2022-11-30,2400,48,M,Ensino Médio,Sim,,2024-06-12,20,1,0,9.0,8.2,Ativo,,,,2800,18
+1042,Letícia Nunes,Desenhista Técnica,Técnico,Escritório Central,2023-01-25,3600,27,F,Técnico,Não,NR18,2024-08-18,42,1,0,9.5,8.8,Ativo,,,,5400,38
+1043,Wagner Souza,Azulejista,Operacional,Residencial Jardins,2021-12-10,3200,39,M,Ensino Médio,Sim,NR18,2024-07-15,35,1,0,9.1,8.4,Ativo,,,,4200,25
+1044,Glória Silva,Auxiliar de Almoxarifado,Operacional,Industrial Norte,2024-03-08,2000,31,F,Ensino Médio,Não,NR18,2024-08-22,18,2,0,8.8,7.9,Ativo,,,,2600,14
+1045,Henrique Costa,Gesseiro,Operacional,Comercial Centro,2023-09-14,2800,34,M,Ensino Fundamental,Não,NR18,2024-08-08,30,2,0,8.5,7.8,Ativo,,,,3400,16
+1046,Simone Dias,Analista Contábil,Administrativo,Escritório Central,2021-02-18,4200,35,F,Superior Completo,Sim,,2024-09-01,38,1,0,10,9.1,Ativo,,,,6800,45
+1047,Edson Ferreira,Serralheiro,Operacional,Industrial Norte,2020-01-20,3600,44,M,Técnico,Sim,NR18;NR12,2024-07-25,52,1,0,9.4,8.7,Ativo,,,,4800,30
+1048,Carla Regina,Telefonista,Administrativo,Escritório Central,2023-05-30,2100,28,F,Ensino Médio,Não,,2024-06-28,15,3,0,10,8.1,Ativo,,,,2700,22
+1049,Fábio Santos,Ladrilheiro,Operacional,Residencial Jardins,2022-07-20,2900,37,M,Ensino Fundamental,Sim,NR18,2024-08-12,33,1,0,8.9,8.2,Ativo,,,,3600,18
+1050,Neusa Lima,Copeira,Operacional,Escritório Central,2024-04-15,1500,52,F,Ensino Fundamental,Não,,2024-07-10,10,2,0,10,7.6,Ativo,,,,1800,10
+1051,Cleber Rocha,Operador de Betoneira,Operacional,Industrial Norte,2023-08-25,2700,30,M,Ensino Médio,Sim,NR18;NR12,2024-08-20,40,1,0,9.2,8.3,Ativo,,,,3300,20
+1052,Vera Lúcia,Auxiliar de Enfermagem,Técnico,Todas as Obras,2021-11-05,3400,40,F,Técnico,Sim,NR32,2024-09-08,75,0,0,10,9.4,Ativo,,,,5600,40
+1053,Mário Silva,Bombeiro Hidráulico,Operacional,Comercial Centro,2022-01-30,3300,43,M,Ensino Médio,Sim,NR18;NR10,2024-07-30,45,2,0,9.0,8.5,Ativo,,,,4400,28
+1054,Regina Santos,Assistente Jurídico,Administrativo,Escritório Central,2020-06-08,4000,36,F,Superior Completo,Sim,,2024-08-25,35,1,0,10,9.0,Ativo,,,,6500,48
+1055,Valdir Oliveira,Carpinteiro,Operacional,Residencial Jardins,2019-03-22,3400,46,M,Ensino Médio,Sim,NR18;NR35,2024-08-05,48,1,0,9.3,8.8,Ativo,,,,4500,32
+1056,Marlene Costa,Auxiliar de Cozinha,Operacional,Escritório Central,2024-06-10,1400,29,F,Ensino Fundamental,Não,,2024-08-15,8,3,0,10,7.4,Ativo,,,,1700,12
+1057,Rogério Alves,Técnico em Eletrônica,Técnico,Industrial Norte,2021-04-12,4600,33,M,Técnico,Sim,NR10;NR35,2024-08-30,58,1,0,9.6,8.9,Ativo,,,,7200,38
+1058,Sônia Martins,Gerente Administrativa,Administrativo,Escritório Central,2017-11-15,8200,41,F,Superior Completo,Sim,,2024-09-10,50,0,0,10,9.6,Ativo,,,,14000,65
+1059,Ailton Souza,Pedreiro,Operacional,Industrial Norte,2023-10-05,2900,35,M,Ensino Fundamental,Sim,NR18,2024-08-08,35,2,0,8.8,8.1,Ativo,,,,3500,18
+1060,Cristina Dias,Auxiliar de Recursos Humanos,Administrativo,Escritório Central,2022-08-18,2600,32,F,Superior Incompleto,Não,,2024-09-02,45,1,0,10,8.6,Ativo,,,,3800,35
+1061,Luiz Carlos,Soldador,Operacional,Comercial Centro,2021-01-25,3400,40,M,Técnico,Sim,NR18;NR35;NR33,2024-08-28,55,1,0,9.4,8.8,Desligado,2024-09-10,Pedido Demissão,4200,25
+1062,Aparecida Silva,Faxineira,Operacional,Residencial Jardins,2024-05-08,1300,38,F,Ensino Fundamental,Não,,2024-07-20,5,4,0,10,7.2,Ativo,,,,1600,8
+1063,Robson Lima,Mestre de Obras,Operacional,Comercial Centro,2019-07-30,4800,50,M,Ensino Médio,Sim,NR18;NR10;NR35,2024-08-18,58,0,0,9.7,9.2,Ativo,,,,5500,35
+1064,Elza Santos,Coordenadora de Compras,Administrativo,Escritório Central,2020-02-14,6200,44,F,Superior Completo,Sim,,2024-08-22,40,1,0,10,9.3,Ativo,,,,9800,52
+1065,Vanderlei Costa,Eletricista,Operacional,Residencial Jardins,2022-09-12,3600,37,M,Técnico,Sim,NR10;NR35,2024-08-25,50,2,0,9.1,8.6,Ativo,,,,4800,30
+1066,Dulce Oliveira,Porteira,Operacional,Escritório Central,2023-12-20,1800,45,F,Ensino Fundamental,Não,,2024-06-25,12,2,0,10,8.0,Ativo,,,,2200,15
+1067,Nilson Rocha,Operador de Guindaste,Operacional,Industrial Norte,2020-08-10,4200,42,M,Ensino Médio,Sim,NR18;NR12,2024-08-15,60,1,0,9.5,8.9,Ativo,,,,6200,42
+1068,Marisa Alves,Técnica em Contabilidade,Administrativo,Escritório Central,2021-10-28,3800,34,F,Técnico,Sim,,2024-09-05,32,1,0,10,8.9,Ativo,,,,5200,38
+1069,Genilson Silva,Ajudante de Pedreiro,Operacional,Comercial Centro,2024-02-18,2000,26,M,Ensino Fundamental,Não,NR18,2024-08-10,28,3,0,8.1,7.6,Ativo,,,,2400,12
+1070,Conceição Lima,Supervisora de Limpeza,Operacional,Todas as Obras,2019-01-10,2900,48,F,Ensino Médio,Não,,2024-07-15,25,1,0,10,8.7,Ativo,,,,3600,28
+1071,Alberto Santos,Topógrafo,Técnico,Todas as Obras,2018-04-20,5200,39,M,Técnico,Sim,NR18,2024-08-20,48,0,0,9.8,9.1,Ativo,,,,8000,50
+1072,Lúcia Costa,Auxiliar de Escritório,Administrativo,Escritório Central,2023-07-25,2300,30,F,Ensino Médio,Não,,2024-08-12,22,2,0,10,8.3,Desligado,2024-09-05,Término Contrato,2800,20
+1073,Sebastião Oliveira,Vigia Noturno,Operacional,Industrial Norte,2022-05-15,2200,55,M,Ensino Fundamental,Não,,2024-06-30,15,1,0,9.0,8.1,Ativo,,,,2600,18
+1074,Rosângela Dias,Analista de Qualidade,Técnico,Todas as Obras,2021-03-08,5500,32,F,Superior Completo,Sim,NR18;NR10,2024-09-01,62,0,0,10,9.4,Ativo,,,,8500,45
+1075,Ademir Silva,Motorista de Caminhão,Operacional,Todas as Obras,2020-12-01,3000,43,M,Ensino Médio,Sim,,2024-07-18,22,2,0,9.2,8.4,Ativo,,,,3600,22
+1076,Fátima Santos,Recepcionista,Administrativo,Escritório Central,2024-01-22,2000,27,F,Ensino Médio,Não,,2024-08-08,18,2,0,10,8.2,Ativo,,,,2500,16
+1077,Oswaldo Lima,Soldador Especializado,Operacional,Industrial Norte,2017-06-15,4000,47,M,Técnico,Sim,NR18;NR35;NR33,2024-08-22,65,1,0,9.6,9.0,Ativo,,,,5500,45
+1078,Marta Costa,Coordenadora de Projetos,Técnico,Escritório Central,2019-09-20,7500,36,F,Superior Completo,Sim,NR18,2024-09-08,55,0,0,10,9.5,Ativo,,,,12000,58
+1079,Gilberto Rocha,Pedreiro Especializado,Operacional,Residencial Jardins,2018-02-10,3600,44,M,Ensino Médio,Sim,NR18;NR35,2024-08-15,42,1,0,9.2,8.9,Ativo,,,,4800,35
+1080,Sueli Alves,Auxiliar de Departamento Pessoal,Administrativo,Escritório Central,2022-06-30,2800,35,F,Ensino Médio,Não,,2024-08-30,35,1,0,10,8.8,Ativo,,,,3800,30
+1081,Manoel Pereira,Pedreiro,Operacional,Residencial Jardins,2023-03-20,2850,32,M,Ensino Fundamental,Sim,NR18,2024-08-12,38,2,0,8.9,8.2,Ativo,,,,3500,17
+1082,Valdete Costa,Auxiliar de Limpeza,Operacional,Comercial Centro,2024-04-10,1550,41,F,Ensino Fundamental,Não,,2024-07-25,15,3,0,10,7.5,Ativo,,,,2000,12
+1083,Geraldo Santos,Soldador,Operacional,Industrial Norte,2021-09-18,3350,38,M,Técnico,Sim,NR18;NR33,2024-08-28,52,1,0,9.3,8.7,Ativo,,,,4300,26
+1084,Joana Silva,Estagiária Contábil,Administrativo,Escritório Central,2024-08-01,1000,21,F,Superior Incompleto,Não,,2024-08-15,20,1,0,10,8.1,Ativo,,,,1200,10
+1085,Paulo Roberto,Armador,Operacional,Comercial Centro,2022-05-25,3050,37,M,Ensino Médio,Sim,NR18;NR35,2024-08-02,40,2,0,8.8,8.3,Ativo,,,,4000,24
+1086,Cleusa Oliveira,Coordenadora de Limpeza,Operacional,Todas as Obras,2020-11-12,3200,46,F,Ensino Médio,Não,,2024-07-20,32,1,0,10,8.9,Ativo,,,,4200,30
+1087,Ronaldo Lima,Ajudante de Soldador,Operacional,Industrial Norte,2024-03-15,2100,27,M,Ensino Fundamental,Não,NR18,2024-08-18,25,4,0,8.0,7.4,Ativo,,,,2500,14
+1088,Neuza Santos,Técnica em Meio Ambiente,Técnico,Todas as Obras,2021-07-08,4400,33,F,Superior Completo,Sim,NR18;NR25,2024-09-05,68,0,0,10,9.3,Ativo,,,,6800,40
+1089,Domingos Silva,Pintor,Operacional,Residencial Jardins,2023-06-30,2650,34,M,Ensino Fundamental,Sim,NR18,2024-08-08,30,2,0,8.7,8.0,Ativo,,,,3200,19
+1090,Helena Costa,Analista de Sistemas,Técnico,Escritório Central,2022-02-14,5800,29,F,Superior Completo,Sim,,2024-09-01,45,1,0,10,9.1,Ativo,,,,8500,42
+1091,Severino Rocha,Operador de Retroescavadeira,Operacional,Industrial Norte,2020-04-22,3900,45,M,Ensino Médio,Sim,NR18;NR12,2024-08-25,55,1,0,9.4,8.8,Ativo,,,,5800,38
+1092,Ivana Alves,Assistente de Compras,Administrativo,Escritório Central,2023-11-08,2700,28,F,Superior Incompleto,Não,,2024-08-15,25,2,0,10,8.4,Ativo,,,,3600,28
+1093,José Carlos,Carpinteiro,Operacional,Comercial Centro,2021-12-20,3150,40,M,Ensino Médio,Sim,NR18;NR35,2024-07-30,42,1,0,9.1,8.5,Ativo,,,,4200,26
+1094,Benedita Lima,Auxiliar de Cozinha,Operacional,Escritório Central,2024-07-12,1350,33,F,Ensino Fundamental,Não,,2024-08-20,10,3,0,10,7.3,Ativo,,,,1650,8
+1095,Aldair Santos,Técnico em Informática,Técnico,Escritório Central,2022-08-05,4100,31,M,Técnico,Sim,,2024-08-30,38,1,0,10,8.9,Ativo,,,,5800,35
+1096,Zilá Costa,Supervisora Administrativa,Administrativo,Escritório Central,2019-01-28,5900,43,F,Superior Completo,Sim,,2024-09-08,48,0,0,10,9.4,Ativo,,,,9200,55
+1097,Expedito Silva,Pedreiro,Operacional,Industrial Norte,2023-09-14,2900,36,M,Ensino Fundamental,Sim,NR18,2024-08-10,35,2,0,8.8,8.1,Ativo,,,,3500,18
+1098,Raimunda Oliveira,Telefonista,Administrativo,Escritório Central,2024-01-30,2050,26,F,Ensino Médio,Não,,2024-07-10,20,3,0,10,8.0,Ativo,,,,2600,18
+1099,Valmir Lima,Soldador Subaquático,Operacional,Industrial Norte,2019-05-15,4500,41,M,Técnico,Sim,NR18;NR33;NR15,2024-08-22,72,0,0,9.8,9.2,Ativo,,,,6500,48
+1100,Sandra Regina,Auxiliar de Enfermagem do Trabalho,Técnico,Todas as Obras,2021-03-18,3600,38,F,Técnico,Sim,NR32,2024-09-02,65,0,0,10,9.3,Ativo,,,,5400,42
+1101,Norberto Santos,Bombeiro Industrial,Técnico,Industrial Norte,2020-10-08,4300,39,M,Técnico,Sim,NR23;NR20,2024-08-28,70,0,0,10,9.5,Ativo,,,,6200,45
+1102,Creusa Silva,Auxiliar de Almoxarifado,Operacional,Comercial Centro,2024-05-20,1950,29,F,Ensino Médio,Não,NR18,2024-08-05,18,2,0,8.8,7.8,Ativo,,,,2400,15
+1103,Wilson Costa,Eletricista Industrial,Operacional,Industrial Norte,2018-07-12,3800,44,M,Técnico,Sim,NR10;NR35,2024-08-20,58,1,0,9.5,8.9,Ativo,,,,5200,40
+1104,Dalva Rocha,Gerente de Qualidade,Técnico,Escritório Central,2017-12-05,8500,42,F,Superior Completo,Sim,NR18;NR10,2024-09-10,65,0,0,10,9.6,Ativo,,,,13500,62
+1105,Adilson Alves,Operador de Ponte Rolante,Operacional,Industrial Norte,2022-04-28,3200,35,M,Ensino Médio,Sim,NR18;NR11,2024-08-15,45,2,0,9.2,8.4,Ativo,,,,4200,30
+1106,Marluce Lima,Assistente Social,Técnico,Escritório Central,2021-11-22,4200,34,F,Superior Completo,Sim,,2024-09-05,55,1,0,10,9.2,Ativo,,,,6800,45
+1107,Francisco Carlos,Azulejista,Operacional,Residencial Jardins,2023-01-15,2750,33,M,Ensino Fundamental,Sim,NR18,2024-08-12,32,2,0,8.9,8.2,Ativo,,,,3400,20
+1108,Terezinha Santos,Porteira,Operacional,Residencial Jardins,2024-06-05,1700,47,F,Ensino Fundamental,Não,,2024-07-25,12,2,0,10,7.9,Ativo,,,,2100,12
+1109,Gilson Silva,Mestre de Obras,Operacional,Residencial Jardins,2019-08-30,4600,48,M,Ensino Médio,Sim,NR18;NR10;NR35,2024-08-25,60,0,0,9.6,9.1,Ativo,,,,5500,38
+1110,Roseli Costa,Analista de Custos,Administrativo,Escritório Central,2020-03-12,5200,37,F,Superior Completo,Sim,,2024-08-30,42,1,0,10,9.0,Ativo,,,,7800,48
+1111,Davi Oliveira,Servente,Operacional,Comercial Centro,2024-04-22,1850,24,M,Ensino Fundamental,Não,NR18,2024-08-08,20,4,0,7.8,7.1,Ativo,,,,2200,10
+1112,Célia Lima,Supervisora de RH,Administrativo,Escritório Central,2018-06-18,6800,40,F,Superior Completo,Sim,,2024-09-08,58,0,0,10,9.5,Ativo,,,,11000,58
+1113,Valdeci Santos,Gesseiro,Operacional,Residencial Jardins,2022-10-15,2850,38,M,Ensino Fundamental,Não,NR18,2024-08-15,35,2,0,8.6,8.0,Ativo,,,,3500,22
+1114,Nirce Silva,Técnica em Radiologia Industrial,Técnico,Industrial Norte,2021-05-20,4800,32,F,Técnico,Sim,NR15,2024-08-28,62,0,0,10,9.4,Ativo,,,,7200,42
+1115,Raimundo Costa,Motorista de Munck,Operacional,Todas as Obras,2020-09-08,3400,41,M,Ensino Médio,Sim,NR18;NR11,2024-08-18,48,2,0,9.1,8.6,Ativo,,,,4500,32
+1116,Lourdes Rocha,Copeira,Operacional,Escritório Central,2024-02-28,1450,50,F,Ensino Fundamental,Não,,2024-07-20,8,2,0,10,7.5,Ativo,,,,1800,12
+1117,Valdemar Alves,Ladrilheiro,Operacional,Comercial Centro,2023-07-10,2950,35,M,Ensino Médio,Sim,NR18,2024-08-12,38,1,0,9.0,8.3,Ativo,,,,3600,18
+1118,Neuza Lima,Coordenadora de Projetos Sociais,Técnico,Escritório Central,2019-04-25,5600,39,F,Superior Completo,Sim,,2024-09-02,52,0,0,10,9.3,Ativo,,,,8800,52
+1119,Joaquim Santos,Pedreiro Especializado,Operacional,Industrial Norte,2017-11-10,3700,45,M,Ensino Médio,Sim,NR18;NR35,2024-08-20,50,1,0,9.3,8.8,Ativo,,,,4800,42
+1120,Zilda Silva,Auxiliar Jurídico,Administrativo,Escritório Central,2022-01-20,3400,31,F,Superior Incompleto,Não,,2024-08-25,32,1,0,10,8.7,Ativo,,,,4800,35
+1121,Lindomar Costa,Carpinteiro Naval,Operacional,Industrial Norte,2020-12-15,3600,40,M,Técnico,Sim,NR18;NR30,2024-08-15,55,1,0,9.4,8.9,Ativo,,,,5200,38
+1122,Vera Rocha,Nutricionista,Técnico,Todas as Obras,2021-08-05,4500,35,F,Superior Completo,Sim,,2024-09-05,48,0,0,10,9.2,Ativo,,,,6800,45
+1123,Ademar Alves,Operador de Empilhadeira,Operacional,Industrial Norte,2022-06-12,2900,37,M,Ensino Médio,Sim,NR18;NR11,2024-08-22,42,2,0,9.0,8.4,Ativo,,,,3800,28
+1124,Francisca Lima,Recepcionista Médica,Administrativo,Escritório Central,2023-12-08,2200,28,F,Ensino Médio,Não,,2024-08-10,22,2,0,10,8.2,Ativo,,,,2800,22
+1125,Cícero Santos,Soldador de Tubulação,Operacional,Industrial Norte,2019-02-18,4200,42,M,Técnico,Sim,NR18;NR33;NR13,2024-08-28,68,0,0,9.7,9.1,Ativo,,,,5800,45
+1126,Nilza Silva,Psicóloga Organizacional,Técnico,Escritório Central,2020-07-30,6200,36,F,Superior Completo,Sim,,2024-09-08,58,0,0,10,9.5,Ativo,,,,9800,52
+1127,Bartolomeu Costa,Vigia,Operacional,Comercial Centro,2023-05-18,2150,52,M,Ensino Fundamental,Não,,2024-07-15,18,1,0,9.0,8.1,Ativo,,,,2500,15
+1128,Aparecida Rocha,Controladora de Qualidade,Técnico,Todas as Obras,2021-09-25,4700,33,F,Superior Completo,Sim,NR18,2024-08-30,58,0,0,10,9.4,Ativo,,,,7200,42
+1129,Edvaldo Alves,Pintor Industrial,Operacional,Industrial Norte,2022-11-08,3100,36,M,Ensino Médio,Sim,NR18;NR33,2024-08-18,45,2,0,8.9,8.5,Ativo,,,,4000,25
+1130,Solange Lima,Gerente de Contratos,Administrativo,Escritório Central,2018-03-20,7800,41,F,Superior Completo,Sim,,2024-09-10,52,0,0,10,9.6,Ativo,,,,12500,62
+1131,Valdomiro Santos,Técnico em Refrigeração,Operacional,Industrial Norte,2021-04-15,3800,39,M,Técnico,Sim,NR18;NR13,2024-08-25,52,1,0,9.3,8.7,Ativo,,,,5200,35
+1132,Antônia Silva,Assistente de Diretoria,Administrativo,Escritório Central,2019-10-12,4800,38,F,Superior Completo,Sim,,2024-09-05,48,0,0,10,9.3,Ativo,,,,7500,55
+1133,Sebastião Costa,Operador de Máquinas Pesadas,Operacional,Industrial Norte,2020-01-28,4100,44,M,Ensino Médio,Sim,NR18;NR12,2024-08-20,58,1,0,9.5,8.8,Ativo,,,,5800,42
+1134,Dirce Rocha,Técnica em Laboratório,Técnico,Industrial Norte,2022-07-18,4000,30,F,Técnico,Sim,NR18;NR15,2024-08-28,55,0,0,10,9.2,Ativo,,,,6200,38
+1135,Olegário Alves,Serralheiro,Operacional,Comercial Centro,2023-02-10,3250,41,M,Técnico,Sim,NR18;NR12,2024-08-15,45,1,0,9.2,8.6,Ativo,,,,4200,25
+1136,Rosa Lima,Coordenadora de Vendas,Administrativo,Escritório Central,2017-09-05,7200,44,F,Superior Completo,Sim,,2024-09-08,55,0,0,10,9.5,Ativo,,,,11800,65
+1137,Walmir Santos,Ajudante de Eletricista,Operacional,Residencial Jardins,2024-06-20,2200,25,M,Ensino Fundamental,Não,NR18,2024-08-12,22,3,0,8.2,7.6,Ativo,,,,2600,14
+1138,Dilma Silva,Auxiliar de Biblioteca,Administrativo,Escritório Central,2023-08-15,2000,32,F,Ensino Médio,Não,,2024-08-05,18,2,0,10,8.1,Ativo,,,,2500,20
+1139,Osvaldo Costa,Mestre Soldador,Operacional,Industrial Norte,2016-12-08,4800,49,M,Técnico,Sim,NR18;NR33;NR35,2024-08-30,65,0,0,9.8,9.3,Ativo,,,,6200,48
+1140,Judite Rocha,Analista de Treinamento,Técnico,Escritório Central,2020-05-22,5000,34,F,Superior Completo,Sim,,2024-09-02,62,0,0,10,9.4,Ativo,,,,7800,48
+1141,Roque Alves,Operador de Caldeira,Operacional,Industrial Norte,2021-01-18,3600,38,M,Técnico,Sim,NR18;NR13,2024-08-22,58,1,0,9.4,8.8,Desligado,2024-09-12,Aposentadoria,5200,35
+1142,Eliane Lima,Auxiliar de Farmácia,Técnico,Escritório Central,2023-10-25,2800,29,F,Técnico,Sim,,2024-08-18,35,1,0,10,8.6,Ativo,,,,3800,28
+1143,Agenor Santos,Carpinteiro de Formas,Operacional,Residencial Jardins,2022-03-15,3300,43,M,Ensino Médio,Sim,NR18;NR35,2024-08-10,48,1,0,9.1,8.7,Ativo,,,,4300,30
+1144,Norma Silva,Coordenadora de Marketing,Administrativo,Escritório Central,2019-07-08,6800,37,F,Superior Completo,Sim,,2024-09-05,50,0,0,10,9.4,Ativo,,,,10500,58
+1145,Luiz Antônio,Técnico em Eletrônica Industrial,Técnico,Industrial Norte,2020-11-30,4400,35,M,Técnico,Sim,NR10;NR12,2024-08-25,55,1,0,9.5,8.9,Ativo,,,,6500,42
+1146,Eunice Costa,Auxiliar de Recursos Humanos,Administrativo,Escritório Central,2024-01-15,2400,31,F,Superior Incompleto,Não,,2024-08-20,25,2,0,10,8.3,Ativo,,,,3200,25
+1147,Waldecy Rocha,Montador Industrial,Operacional,Industrial Norte,2021-06-25,3500,40,M,Ensino Médio,Sim,NR18;NR35,2024-08-15,50,1,0,9.2,8.6,Ativo,,,,4800,32
+1148,Cleide Alves,Secretária Executiva,Administrativo,Escritório Central,2018-08-12,4200,39,F,Superior Completo,Sim,,2024-09-08,45,0,0,10,9.2,Ativo,,,,6500,52
+1149,Manoel Carlos,Soldador MIG,Operacional,Comercial Centro,2023-04-20,3400,33,M,Técnico,Sim,NR18;NR33,2024-08-12,48,2,0,9.0,8.4,Ativo,,,,4400,22
+1150,Carmem Lima,Coordenadora de Comunicação,Administrativo,Escritório Central,2020-02-18,5800,36,F,Superior Completo,Sim,,2024-09-02,48,0,0,10,9.3,Ativo,,,,8800,48
+1151,Severiano Santos,Pedreiro,Operacional,Comercial Centro,2024-07-08,2800,30,M,Ensino Fundamental,Sim,NR18,2024-08-28,28,3,0,8.7,7.9,Desligado,2024-09-20,Término Contrato,3500,12
+1152,Adelaide Silva,Auxiliar de Contabilidade,Administrativo,Escritório Central,2022-09-12,2900,33,F,Ensino Médio,Não,,2024-08-25,30,1,0,10,8.7,Ativo,,,,3600,32
+1153,Ayrton Costa,Técnico em Automação,Técnico,Industrial Norte,2021-12-05,4600,32,M,Técnico,Sim,NR10;NR12,2024-08-30,58,0,0,9.6,9.1,Ativo,,,,6800,40
+1154,Vilma Rocha,Coordenadora de Logística,Administrativo,Escritório Central,2019-03-28,6200,42,F,Superior Completo,Sim,,2024-09-05,52,0,0,10,9.4,Ativo,,,,9500,55
+1155,Givaldo Alves,Operador de Prensa,Operacional,Industrial Norte,2022-05-18,3000,36,M,Ensino Médio,Sim,NR18;NR12,2024-08-20,42,2,0,9.1,8.3,Ativo,,,,3800,28
+1156,Zuleica Lima,Analista de Processos,Técnico,Escritório Central,2020-10-15,5400,35,F,Superior Completo,Sim,,2024-08-28,55,0,0,10,9.3,Ativo,,,,8200,45
+1157,Toninho Santos,Ajudante Geral,Operacional,Residencial Jardins,2024-05-12,1900,26,M,Ensino Fundamental,Não,NR18,2024-08-10,20,4,0,8.0,7.2,Ativo,,,,2300,10
+1158,Creuzita Silva,Telefonista,Administrativo,Escritório Central,2023-11-20,2100,27,F,Ensino Médio,Não,,2024-08-15,22,3,0,10,8.0,Ativo,,,,2600,18
+1159,Washington Costa,Soldador TIG,Operacional,Industrial Norte,2019-06-12,4000,41,M,Técnico,Sim,NR18;NR33;NR35,2024-08-25,62,0,0,9.7,9.0,Ativo,,,,5600,45
+1160,Magna Rocha,Gerente de Pessoas,Administrativo,Escritório Central,2017-04-15,8800,43,F,Superior Completo,Sim,,2024-09-10,65,0,0,10,9.7,Ativo,,,,14000,65
