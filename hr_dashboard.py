@@ -529,7 +529,7 @@ def render_tab_content(active_tab):
                 html.Div(
                     [
                         html.H4(
-                            "📊 Funcionários por Nível de Risco",
+                            "Funcionários por Nível de Risco",
                             style={"color": colors["primary"]},
                         ),
                         html.Div(id="risk-table-content"),
