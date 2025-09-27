@@ -1,12 +1,23 @@
+# from sklearn.ensemble import RandomForestClassifier
+# from sklearn.preprocessing import LabelEncoder, StandardScaler
+# from sklearn.model_selection import train_test_split
+# from sklearn.metrics import classification_report, accuracy_score
+# import numpy as np
+import warnings
+from datetime import datetime
+
+import dash
 import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+from dash import Input, Output, dcc, html
 from plotly.subplots import make_subplots
-import dash
-from dash import dcc, html, Input, Output
-from datetime import datetime
-from styles import *
-from helper_funcs import * 
+
+from helper_funcs import *
+from styles import tab_style, tab_selected_style
+
+
+warnings.filterwarnings("ignore")
 
 # Load and prepare data - handle CSV parsing issues
 # no index column in the CSV
@@ -55,6 +66,9 @@ total_payroll = df[df["status_funcionario"] == "Ativo"]["salario"].sum()
 # Calculate years of service
 today = datetime.now()
 df["anos_servico"] = (today - df["data_admissao"]).dt.days / 365.25
+
+# Train the model and get predictions
+prediction_df, feature_importance = predict_turnover_risk(df)
 
 # Initialize Dash app
 app = dash.Dash(__name__, suppress_callback_exceptions=True, title="Dashboard RH")
@@ -265,6 +279,12 @@ app.layout = html.Div(
                             style=tab_style,
                             selected_style=tab_selected_style,
                         ),
+                        dcc.Tab(
+                            label="Previsão Saída",
+                            value="turnover-prediction",
+                            style=tab_style,
+                            selected_style=tab_selected_style,
+                        ),
                     ],
                 ),
                 # Tab content
@@ -457,6 +477,64 @@ def render_tab_content(active_tab):
                 ),
                 # Content will be updated by another callback
                 html.Div(id="certifications-content"),
+            ]
+        )
+
+    elif active_tab == "turnover-prediction":
+        return html.Div(
+            [
+                html.H2(
+                    "Previsão de Rotatividade de Funcionários",
+                    style={"color": colors["primary"], "marginBottom": 20},
+                ),
+                # Model Info Card
+                html.Div(
+                    [
+                        html.H4(
+                            "Sobre o Modelo de Machine Learning",
+                            style={"color": colors["secondary"]},
+                        ),
+                        html.P(
+                            [
+                                "Este modelo utiliza ",
+                                html.B("Random Forest"),
+                                " para prever a probabilidade de um funcionário deixar a empresa. ",
+                                "O modelo analisa fatores como idade, salário, tempo de empresa, desempenho, ",
+                                "treinamentos e métricas de segurança.",
+                            ]
+                        ),
+                        html.Div(id="model-accuracy-info"),
+                    ],
+                    style={
+                        "background": "#e8f4fd",
+                        "padding": 15,
+                        "borderRadius": 8,
+                        "marginBottom": 20,
+                        "border": "1px solid #bee5eb",
+                    },
+                ),
+                # Risk Summary Cards
+                # html.Div(id="risk-summary-cards", style={"marginBottom": 20}),
+                # Risk Level Distribution Chart
+                html.Div(
+                    [dcc.Graph(id="risk-distribution-chart")],
+                    style={"marginBottom": 20},
+                ),
+                # Feature Importance Chart
+                html.Div(
+                    [dcc.Graph(id="feature-importance-chart")],
+                    style={"marginBottom": 20},
+                ),
+                # Employees Risk Table
+                html.Div(
+                    [
+                        html.H4(
+                            "📊 Funcionários por Nível de Risco",
+                            style={"color": colors["primary"]},
+                        ),
+                        html.Div(id="risk-table-content"),
+                    ]
+                ),
             ]
         )
 
@@ -1086,6 +1164,243 @@ def update_certifications_content(dept_filter):
                 },
             ),
         ]
+    )
+
+
+# Machine Learning Callbacks
+@app.callback(Output("risk-summary-cards", "children"), Input("main-tabs", "value"))
+def update_risk_summary_cards(active_tab):
+    if active_tab != "turnover-prediction" or prediction_df is None:
+        return []
+
+    # Count by risk level
+    risk_counts = prediction_df["risk_level"].value_counts()
+    total_employees = len(prediction_df)
+
+    cards = []
+    colors_risk = {"Alto": "#dc3545", "Médio": "#ffc107", "Baixo": "#28a745"}
+
+    for risk_level in ["Alto", "Médio", "Baixo"]:
+        count = risk_counts.get(risk_level, 0)
+        percentage = (count / total_employees * 100) if total_employees > 0 else 0
+
+        cards.append(
+            html.Div(
+                [
+                    html.H3(
+                        f"{count}",
+                        style={"color": colors_risk[risk_level], "margin": 0},
+                    ),
+                    html.P(f"Risco {risk_level}", style={"margin": 0}),
+                    html.Small(f"{percentage:.1f}%", style={"color": "#666"}),
+                ],
+                style={
+                    "background": colors["card"],
+                    "padding": 20,
+                    "borderRadius": 8,
+                    "boxShadow": "0 2px 4px rgba(0,0,0,0.1)",
+                    "textAlign": "center",
+                    "width": "20%",
+                    "display": "inline-block",
+                    "margin": "1%",
+                },
+            )
+        )
+
+    return cards
+
+
+@app.callback(Output("risk-distribution-chart", "figure"), Input("main-tabs", "value"))
+def update_risk_distribution_chart(active_tab):
+    if active_tab != "turnover-prediction" or prediction_df is None:
+        return {}
+
+    # Risk distribution by department
+    risk_by_dept = (
+        prediction_df.groupby(["departamento", "risk_level"])
+        .size()
+        .reset_index(name="count")
+    )
+
+    fig = px.bar(
+        risk_by_dept,
+        x="departamento",
+        y="count",
+        color="risk_level",
+        title="Distribuição de Risco por Departamento",
+        color_discrete_map={"Alto": "#dc3545", "Médio": "#ffc107", "Baixo": "#28a745"},
+    )
+    fig.update_layout(xaxis_title="Departamento", yaxis_title="Número de Funcionários")
+    fig.update_xaxes(tickangle=45)
+
+    return fig
+
+
+@app.callback(Output("feature-importance-chart", "figure"), Input("main-tabs", "value"))
+def update_feature_importance_chart(active_tab):
+    if active_tab != "turnover-prediction" or feature_importance is None:
+        return {}
+
+    # Create feature importance chart
+    features = list(feature_importance.keys())
+    importance = list(feature_importance.values())
+
+    # Map technical names to readable names
+    feature_names = {
+        "idade_normalizada": "Idade",
+        "salario_normalizado": "Salário",
+        "anos_servico_normalizado": "Tempo de Empresa",
+        "departamento_encoded": "Departamento",
+        "horas_treinamento_ano": "Horas de Treinamento",
+        "dias_ausencia_mes": "Dias de Ausência",
+        "acidentes_trabalho": "Acidentes de Trabalho",
+        "uso_epi_score": "Uso de EPI",
+        "avaliacao_performance": "Avaliação de Performance",
+    }
+
+    readable_features = [feature_names.get(f, f) for f in features]
+
+    fig = px.bar(
+        x=importance,
+        y=readable_features,
+        orientation="h",
+        title="Importância dos Fatores no Modelo de Previsão",
+        color_discrete_sequence=[colors["primary"]],
+    )
+    fig.update_layout(xaxis_title="Importância no Modelo", yaxis_title="Fatores")
+
+    return fig
+
+
+@app.callback(Output("risk-table-content", "children"), Input("main-tabs", "value"))
+def update_risk_table(active_tab):
+    if active_tab != "turnover-prediction" or prediction_df is None:
+        return "Dados não disponíveis"
+
+    # Sort by risk score descending
+    top_risk = prediction_df.sort_values("risk_score", ascending=False).head(20)
+
+    # Create table
+    table_header = [
+        html.Tr(
+            [
+                html.Th(
+                    "Nome",
+                    style={
+                        "padding": 10,
+                        "background": colors["primary"],
+                        "color": "white",
+                    },
+                ),
+                html.Th(
+                    "Departamento",
+                    style={
+                        "padding": 10,
+                        "background": colors["primary"],
+                        "color": "white",
+                    },
+                ),
+                html.Th(
+                    "Cargo",
+                    style={
+                        "padding": 10,
+                        "background": colors["primary"],
+                        "color": "white",
+                    },
+                ),
+                html.Th(
+                    "Risco",
+                    style={
+                        "padding": 10,
+                        "background": colors["primary"],
+                        "color": "white",
+                    },
+                ),
+                html.Th(
+                    "Score (%)",
+                    style={
+                        "padding": 10,
+                        "background": colors["primary"],
+                        "color": "white",
+                    },
+                ),
+                html.Th(
+                    "Salário",
+                    style={
+                        "padding": 10,
+                        "background": colors["primary"],
+                        "color": "white",
+                    },
+                ),
+                html.Th(
+                    "Performance",
+                    style={
+                        "padding": 10,
+                        "background": colors["primary"],
+                        "color": "white",
+                    },
+                ),
+            ]
+        )
+    ]
+
+    table_body = []
+    for _, row in top_risk.iterrows():
+        risk_color = (
+            "#dc3545"
+            if row["risk_level"] == "Alto"
+            else "#ffc107"
+            if row["risk_level"] == "Médio"
+            else "#28a745"
+        )
+
+        table_body.append(
+            html.Tr(
+                [
+                    html.Td(
+                        row["nome"],
+                        style={"padding": 10, "borderBottom": "1px solid #ddd"},
+                    ),
+                    html.Td(
+                        row["departamento"],
+                        style={"padding": 10, "borderBottom": "1px solid #ddd"},
+                    ),
+                    html.Td(
+                        row["cargo"],
+                        style={"padding": 10, "borderBottom": "1px solid #ddd"},
+                    ),
+                    html.Td(
+                        row["risk_level"],
+                        style={
+                            "padding": 10,
+                            "borderBottom": "1px solid #ddd",
+                            "color": risk_color,
+                            "fontWeight": "bold",
+                        },
+                    ),
+                    html.Td(
+                        f"{row['risk_score'] * 100:.1f}%",
+                        style={"padding": 10, "borderBottom": "1px solid #ddd"},
+                    ),
+                    html.Td(
+                        f"R$ {row['salario']:,.0f}",
+                        style={"padding": 10, "borderBottom": "1px solid #ddd"},
+                    ),
+                    html.Td(
+                        f"{row['avaliacao_performance']:.1f}",
+                        style={"padding": 10, "borderBottom": "1px solid #ddd"},
+                    ),
+                ]
+            )
+        )
+
+    return html.Table(
+        table_header + [html.Tbody(table_body)],
+        style={
+            "width": "100%",
+            "borderCollapse": "collapse",
+            "background": colors["card"],
+        },
     )
 
 
