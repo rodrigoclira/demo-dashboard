@@ -2,6 +2,8 @@
 
 Dashboard interativo para análise de dados de recursos humanos de uma empresa de construção civil.
 
+> Os dados apresentados no dashboard são fictícios.
+
 ## Funcionalidades
 
 ### KPIs Principais
@@ -54,6 +56,7 @@ O dashboard analisa 160 registros de funcionários com as seguintes informaçõe
 - **Plotly 5.17.0** - Biblioteca de visualização
 - **Pandas 2.1.1** - Manipulação de dados
 - **NumPy 1.25.2** - Computação numérica
+- **Scikit Learn 1.7.2** - Previsão de saída (Machine Learning)
 
 ## Departamentos Analisados
 
@@ -62,4 +65,4 @@ O dashboard analisa 160 registros de funcionários com as seguintes informaçõe
 - **Administrativo** - RH, financeiro, assistentes
 - **Todas as Obras** - Funcionários que atuam em múltiplos projetos
 
-Este dashboard fornece insights valiosos para a gestão de RH, permitindo análises de performance, segurança e rotatividade da equipe de construção.
+Este dashboard de demonstração fornece insights para a gestão de RH, permitindo análises de performance, segurança e rotatividade da equipe de construção.
